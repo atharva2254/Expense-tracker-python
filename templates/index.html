@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Expense Tracker</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+  </head>
+  <body>
+    <h1>Expense Tracker</h1>
+    <form action="/add" method="post">
+      <label for="date">Date:</label>
+      <input type="date" id="date" name="date" required /><br />
+
+      <label for="category">Category:</label>
+      <select id="category" name="category" required>
+        <option value="Income">Income</option>
+        <option value="Expense">Expense</option></select
+      ><br />
+
+      <label for="description">Description:</label>
+      <input type="text" id="description" name="description" required /><br />
+
+      <label for="amount">Amount:</label>
+      <input type="text" id="amount" name="amount" required /><br />
+
+      <button type="submit">Add Expense</button>
+    </form>
+    <h2>Expenses</h2>
+    <table border="1">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Date</th>
+          <th>Description</th>
+          <th>Category</th>
+          <th>Amount</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for expense in expenses %}
+        <tr>
+          <td>{{ expense[0] }}</td>
+          <td>{{ expense[1] }}</td>
+          <td>{{ expense[2] }}</td>
+          <td>{{ expense[3] }}</td>
+          <td>{{ expense[4] }}</td>
+          <td><a href="/delete/{{ expense[0] }}">Delete</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </body>
+</html>
